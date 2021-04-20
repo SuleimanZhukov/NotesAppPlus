@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="names">
+        <item>excellent</item>
+        <item>good</item>
+        <item>bad</item>
+        <item>worse</item>
+        <item>worst</item>
+    </string-array>
+
+</resources>
