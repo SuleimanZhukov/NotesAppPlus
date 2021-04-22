@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,35 +43,52 @@ public class ListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_list, container, false);
+
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view_layout, container, false);
         recyclerView.setHasFixedSize(false);
-
-        String[] names = getResources().getStringArray(R.array.names);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireActivity());
         recyclerView.setLayoutManager(layoutManager);
 
         Adapter adapter = new Adapter(inflater, new CardDataSourceImpl(getResources()));
         adapter.setOnClickListener((view, position) -> {
-            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                //TODO: Goes to landscape.
-            } else {
-                //TODO: Stays in portrait.
-            }
+            DetailsFragment fragment = new DetailsFragment();
+            goToFragment(fragment);
         });
 
         recyclerView.setAdapter(adapter);
 
-        return recyclerView;
+        viewGroup.addView(recyclerView);
+
+        return viewGroup;
+    }
+
+    private void goToFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView title;
+        public final TextView description;
+        public final TextView date;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.title);
+            title = itemView.findViewById(R.id.title_view);
+            description = itemView.findViewById(R.id.desciption_view);
+            date = itemView.findViewById(R.id.date_view);
+        }
+
+        public void populate(CardData data) {
+            title.setText(data.getTitle());
+            description.setText(data.getDescription());
+            date.setText(data.getDate());
         }
     }
 
@@ -83,7 +102,7 @@ public class ListFragment extends Fragment {
         private OnClickListener mOnClickListener;
 
         public Adapter(LayoutInflater inflater, CardDataSource dataSource) {
-            this.mInflater = inflater;
+            mInflater = inflater;
             mDataSource = dataSource;
         }
 
@@ -101,8 +120,8 @@ public class ListFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             CardData cardData = mDataSource.getItemAt(position);
-            holder.title.setText(cardData.getTitle());
-            holder.title.setOnClickListener(v -> {
+            holder.populate(cardData);
+            holder.itemView.setOnClickListener(v -> {
                 if (mOnClickListener != null) {
                     mOnClickListener.onItemClick(v, position);
                 }
