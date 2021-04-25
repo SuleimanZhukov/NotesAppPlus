@@ -1,4 +1,4 @@
-package com.suleiman.notesappplus;
+package com.suleiman.notesappplus.card;
 
 public class CardData {
     private String mTitle;

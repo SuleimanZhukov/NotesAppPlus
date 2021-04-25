@@ -24,4 +24,8 @@ public class MainActivity extends AppCompatActivity {
             transaction.commit();
         }
     }
+
+    public String getTitleName(String title) {
+        return title;
+    }
 }

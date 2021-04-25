@@ -10,18 +10,18 @@ import android.view.ViewGroup;
 
 public class DetailsFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM = "DetailsFragment.prefix";
 
-    private String mParam1;
+    private String mParam;
 
     public DetailsFragment() {
         // Required empty public constructor
     }
 
-    public static DetailsFragment newInstance(String param1, String param2) {
+    public static DetailsFragment newInstance(String param1) {
         DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -30,7 +30,7 @@ public class DetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam = getArguments().getString(ARG_PARAM);
         }
     }
 
