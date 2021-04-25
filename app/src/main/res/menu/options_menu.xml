@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/option_edit"
+        android:title="Edit"
+        android:orderInCategory="10"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/option_sort"
+        android:title="Sort"
+        android:orderInCategory="20"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/option_view"
+        android:title="View"
+        android:orderInCategory="30"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/option_clear"
+        android:title="Clear"
+        android:orderInCategory="40"
+        app:showAsAction="never"
+        />
+
+</menu>

@@ -1,8 +1,9 @@
-package com.suleiman.notesappplus;
+package com.suleiman.notesappplus.card;
 
 import android.content.res.Resources;
 
-import java.util.ArrayList;
+import com.suleiman.notesappplus.R;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,5 +33,20 @@ public class CardDataSourceImpl implements CardDataSource {
     @Override
     public int getItemCount() {
         return mData.size();
+    }
+
+    @Override
+    public void add(CardData data) {
+        mData.add(data);
+    }
+
+    @Override
+    public void remove(int idx) {
+        mData.remove(idx);
+    }
+
+    @Override
+    public void clear() {
+        mData.clear();
     }
 }
