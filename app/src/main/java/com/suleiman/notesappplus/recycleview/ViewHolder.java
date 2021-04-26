@@ -20,7 +20,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         title = itemView.findViewById(R.id.title_view);
-        description = itemView.findViewById(R.id.desciption_view);
+        description = itemView.findViewById(R.id.description_view);
         date = itemView.findViewById(R.id.date_view);
     }
 

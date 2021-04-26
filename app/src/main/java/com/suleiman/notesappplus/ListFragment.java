@@ -19,12 +19,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.suleiman.notesappplus.card.CardData;
 import com.suleiman.notesappplus.card.CardDataSource;
 import com.suleiman.notesappplus.card.CardDataSourceImpl;
 import com.suleiman.notesappplus.recycleview.Adapter;
+
+import org.w3c.dom.Text;
 
 public class ListFragment extends Fragment {
 
@@ -36,6 +39,7 @@ public class ListFragment extends Fragment {
     private CardDataSource mCardDataSource;
     private Adapter mAdapter;
 
+    private TextView title;
     private String mTitle;
 
     public ListFragment() {
@@ -64,6 +68,8 @@ public class ListFragment extends Fragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_list, container, false);
         FloatingActionButton floatingButton = viewGroup.findViewById(R.id.floating_action_button);
         AppCompatImageView deleteCard = viewGroup.findViewById(R.id.card_delete_icon);
+        TextView title = viewGroup.findViewById(R.id.title_view);
+//        title.setText(mTitle);
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view_layout, container, false);
         recyclerView.setHasFixedSize(false);
@@ -150,7 +156,7 @@ public class ListFragment extends Fragment {
 
     private void floatingButtonListener(FloatingActionButton floatingButton, RecyclerView recyclerView) {
         floatingButton.setOnClickListener(v -> {
-            mCardDataSource.add(new CardData("New note", "", "25.04.2021"));
+            mCardDataSource.add(new CardData("New note", "No description", "25.04.2021"));
             int position = mCardDataSource.getItemCount() - 1;
             mAdapter.notifyItemInserted(position);
             recyclerView.smoothScrollToPosition(position);
@@ -162,5 +168,13 @@ public class ListFragment extends Fragment {
             mCardDataSource.remove(mLastSelectedPosition);
             mAdapter.notifyItemRemoved(mLastSelectedPosition);
         });
+    }
+
+    public void updateTitleText(String title) {
+        mTitle = title;
+    }
+
+    public String getTitle() {
+        return mTitle;
     }
 }

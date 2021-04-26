@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/notes"
+            android:title="All notes"
+            android:orderInCategory="10"
+            android:icon="@drawable/all_notes"
+            />
+
+        <item
+            android:id="@+id/old_notes"
+            android:title="Old format notes"
+            android:orderInCategory="20"
+            android:icon="@drawable/old_notes"
+            />
+
+        <item
+            android:id="@+id/shared_notebooks"
+            android:title="Shared notebooks"
+            android:orderInCategory="30"
+            android:icon="@drawable/shared_notebooks"
+            />
+
+        <item
+            android:id="@+id/trash"
+            android:title="Trash"
+            android:orderInCategory="40"
+            android:icon="@drawable/trash"
+            />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/folders"
+            android:title="Folders"
+            android:orderInCategory="50"
+            android:icon="@drawable/folder"
+            />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/settings"
+            android:title="Settings"
+            android:orderInCategory="60"
+            android:icon="@drawable/settings"
+            />
+    </group>
+</menu>
