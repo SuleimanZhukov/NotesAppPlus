@@ -22,12 +22,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.suleiman.notesappplus.card.CardData;
-import com.suleiman.notesappplus.card.CardDataSource;
-import com.suleiman.notesappplus.card.CardDataSourceImpl;
+import com.suleiman.notesappplus.data.CardData;
+import com.suleiman.notesappplus.data.CardDataSource;
+import com.suleiman.notesappplus.data.CardDataSourceImpl;
 import com.suleiman.notesappplus.recycleview.Adapter;
-
-import org.w3c.dom.Text;
 
 public class ListFragment extends Fragment {
 

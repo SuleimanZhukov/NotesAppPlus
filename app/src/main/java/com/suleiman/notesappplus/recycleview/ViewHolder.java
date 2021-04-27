@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.suleiman.notesappplus.ListFragment;
 import com.suleiman.notesappplus.R;
-import com.suleiman.notesappplus.card.CardData;
+import com.suleiman.notesappplus.data.CardData;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
     public final TextView title;

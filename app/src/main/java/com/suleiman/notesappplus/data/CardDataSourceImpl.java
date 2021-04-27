@@ -1,12 +1,12 @@
-package com.suleiman.notesappplus.card;
+package com.suleiman.notesappplus.data;
 
 import android.content.res.Resources;
 
-import com.suleiman.notesappplus.R;
-
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class CardDataSourceImpl implements CardDataSource {
     private final LinkedList<CardData> mData = new LinkedList<>();

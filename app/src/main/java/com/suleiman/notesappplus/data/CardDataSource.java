@@ -1,4 +1,4 @@
-package com.suleiman.notesappplus.card;
+package com.suleiman.notesappplus.data;
 
 import java.util.List;
 
