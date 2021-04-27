@@ -5,13 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.suleiman.notesappplus.ListFragment;
 import com.suleiman.notesappplus.R;
-import com.suleiman.notesappplus.card.CardData;
-import com.suleiman.notesappplus.card.CardDataSource;
+import com.suleiman.notesappplus.data.CardData;
+import com.suleiman.notesappplus.data.CardDataSource;
 
 public class Adapter extends RecyclerView.Adapter<ViewHolder> {
     private final LayoutInflater mInflater;
