@@ -2,6 +2,8 @@ package com.suleiman.notesappplus.data;
 
 import android.content.res.Resources;
 
+import com.suleiman.notesappplus.details.DetailsData;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;

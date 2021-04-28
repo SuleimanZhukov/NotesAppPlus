@@ -38,6 +38,7 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CardData cardData = mDataSource.getItemAt(position);
+        mListFragment.setKey(position);
         holder.populate(mListFragment, cardData);
         holder.itemView.setOnClickListener(v -> {
             if (mOnClickListener != null) {
