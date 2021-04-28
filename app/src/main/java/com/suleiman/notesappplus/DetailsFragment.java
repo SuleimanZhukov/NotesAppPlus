@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.suleiman.notesappplus.data.CardDataSource;
+import com.suleiman.notesappplus.details.DetailsDataSource;
+import com.suleiman.notesappplus.details.DetailsDataSourceImpl;
 
 public class DetailsFragment extends Fragment {
     private DataTransfer dataTransfer;
@@ -21,20 +23,20 @@ public class DetailsFragment extends Fragment {
         void sendTitle(String title);
     }
 
-    private static final String ARG_PARAM = "DetailsFragment.prefix";
+    private static final String ARG_KEY_DETAILS = "DetailsFragment.prefix";
 
-    private String mParam;
+    private int mKeyDetails;
     private EditText mTitle;
-    private CardDataSource mCardDataSource;
+    private DetailsDataSource mDetailsDataSource;
 
     public DetailsFragment() {
-        // Required empty public constructor
+
     }
 
-    public static DetailsFragment newInstance(String param1) {
+    public static DetailsFragment newInstance(int keyDetails) {
         DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM, param1);
+        args.putInt(ARG_KEY_DETAILS, keyDetails);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,15 +55,19 @@ public class DetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam = getArguments().getString(ARG_PARAM);
+            mKeyDetails = getArguments().getInt(ARG_KEY_DETAILS);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_details, container, false);
+        mDetailsDataSource = new DetailsDataSourceImpl();
 
         mTitle = view.findViewById(R.id.title_details);
+        String titleText = mDetailsDataSource.get(mKeyDetails).getTitleDetails();
+
+        mTitle.setText(titleText);
 
         Button save = view.findViewById(R.id.save_button);
         save.setOnClickListener(v -> {

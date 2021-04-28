@@ -1,42 +1,46 @@
 package com.suleiman.notesappplus.details;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class DetailsDataSourceImpl implements DetailsDataSource {
-    private final LinkedList<DetailsData> mDetailsData = new LinkedList<>();
+    private final HashMap<Integer, DetailsData> mDetailsMap = new HashMap<>();
 
     public DetailsDataSourceImpl() {
 
     }
 
     @Override
-    public List<DetailsData> getCardData() {
-        return mDetailsData;
-    }
-
-    @Override
-    public DetailsData getItemAt(int idx) {
-        return mDetailsData.get(idx);
+    public Map<Integer, DetailsData> getDetailsData() {
+        return mDetailsMap;
     }
 
     @Override
     public int getItemCount() {
-        return mDetailsData.size();
+        return mDetailsMap.size();
     }
 
     @Override
-    public void add(DetailsData data) {
-
-    }
-
-    @Override
-    public void remove(int idx) {
-        mDetailsData.remove(idx);
+    public void remove(int key) {
+        mDetailsMap.remove(key);
     }
 
     @Override
     public void clear() {
-        mDetailsData.clear();
+        mDetailsMap.clear();
+    }
+
+    @Override
+    public void put(int pos, DetailsData data) {
+        Integer key = pos;
+        mDetailsMap.put(key, data);
+    }
+
+    @Override
+    public DetailsData get(int pos) {
+        Integer key = pos;
+        return mDetailsMap.get(key);
     }
 }

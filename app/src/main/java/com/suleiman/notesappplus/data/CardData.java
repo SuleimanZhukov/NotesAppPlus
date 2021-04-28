@@ -1,14 +1,24 @@
 package com.suleiman.notesappplus.data;
 
 public class CardData {
+    private int mKeyCard;
     private String mTitle;
     private String mDescription;
     private String mDate;
 
-    public CardData(String title, String description, String date) {
+    public CardData(int keyCard, String title, String description, String date) {
+        mKeyCard = keyCard;
         mTitle = title;
         mDescription = description;
         mDate = date;
+    }
+
+    public int getKeyCard() {
+        return mKeyCard;
+    }
+
+    public void setKeyCard(int keyCard) {
+        mKeyCard = keyCard;
     }
 
     public String getTitle() {

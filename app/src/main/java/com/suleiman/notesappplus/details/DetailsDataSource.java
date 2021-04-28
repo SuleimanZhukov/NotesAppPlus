@@ -1,13 +1,14 @@
 package com.suleiman.notesappplus.details;
 
-import java.util.List;
+import java.util.Map;
 
 public interface DetailsDataSource {
-    List<DetailsData> getCardData();
-    DetailsData getItemAt(int idx);
+    Map<Integer, DetailsData> getDetailsData();
     int getItemCount();
 
-    void add(DetailsData data);
-    void remove(int idx);
+    void remove(int key);
     void clear();
+
+    void put(int position, DetailsData data);
+    DetailsData get(int key);
 }

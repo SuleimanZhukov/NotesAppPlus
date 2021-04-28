@@ -18,14 +18,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.suleiman.notesappplus.data.CardData;
 import com.suleiman.notesappplus.data.CardDataSource;
 import com.suleiman.notesappplus.data.CardDataSourceImpl;
+import com.suleiman.notesappplus.details.DetailsData;
+import com.suleiman.notesappplus.details.DetailsDataSource;
+import com.suleiman.notesappplus.details.DetailsDataSourceImpl;
 import com.suleiman.notesappplus.recycleview.Adapter;
+
+import java.nio.channels.MembershipKey;
 
 public class ListFragment extends Fragment {
 
@@ -35,19 +43,21 @@ public class ListFragment extends Fragment {
 
     private String mParam;
     private CardDataSource mCardDataSource;
+    private DetailsDataSource mDetailsDataSource;
     private Adapter mAdapter;
 
     private TextView title;
     private String mTitle;
+    private int mKey = 1;
 
     public ListFragment() {
         // Required empty public constructor
     }
 
-    public static ListFragment newInstance(String param1) {
+    public static ListFragment newInstance(String param) {
         ListFragment fragment = new ListFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM, param1);
+        args.putString(ARG_PARAM, param);
         fragment.setArguments(args);
         return fragment;
     }
@@ -66,8 +76,10 @@ public class ListFragment extends Fragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_list, container, false);
         FloatingActionButton floatingButton = viewGroup.findViewById(R.id.floating_action_button);
         AppCompatImageView deleteCard = viewGroup.findViewById(R.id.card_delete_icon);
-        TextView title = viewGroup.findViewById(R.id.title_view);
-//        title.setText(mTitle);
+        Button toastButton = viewGroup.findViewById(R.id.toast_button);
+        toastButton.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "Count: " + mDetailsDataSource.getItemCount(), Toast.LENGTH_SHORT).show();
+        });
 
         RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view_layout, container, false);
         recyclerView.setHasFixedSize(false);
@@ -75,11 +87,12 @@ public class ListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireActivity());
         recyclerView.setLayoutManager(layoutManager);
 
+        mDetailsDataSource = new DetailsDataSourceImpl();
         mCardDataSource = new CardDataSourceImpl(getResources());
         mAdapter = new Adapter(this, mCardDataSource);
         mAdapter.setOnClickListener((view, position) -> {
-            DetailsFragment detailsFragment = new DetailsFragment();
-            inflateFragment(detailsFragment);
+            DetailsFragment detailsFragment = DetailsFragment.newInstance(mKey);
+            addFragment(detailsFragment);
         });
 
         floatingButtonListener(floatingButton, recyclerView);
@@ -90,7 +103,7 @@ public class ListFragment extends Fragment {
         return viewGroup;
     }
 
-    private void inflateFragment(Fragment fragment) {
+    private void addFragment(Fragment fragment) {
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fragment_container, fragment);
@@ -135,6 +148,7 @@ public class ListFragment extends Fragment {
             }
         } else if (item.getItemId() == R.id.context_menu_delete) {
             if (mLastSelectedPosition != -1) {
+                mDetailsDataSource.remove(mLastSelectedPosition);
                 mCardDataSource.remove(mLastSelectedPosition);
                 mAdapter.notifyItemRemoved(mLastSelectedPosition);
             }
@@ -154,7 +168,10 @@ public class ListFragment extends Fragment {
 
     private void floatingButtonListener(FloatingActionButton floatingButton, RecyclerView recyclerView) {
         floatingButton.setOnClickListener(v -> {
-            mCardDataSource.add(new CardData("New note", "No description", "25.04.2021"));
+            Toast.makeText(requireContext(), "Key: " + mKey, Toast.LENGTH_SHORT).show();
+            mCardDataSource.add(new CardData(mKey, "New note", "No description", "25.04.2021"));
+            mDetailsDataSource.put(mKey, new DetailsData("New note",
+                    "No description", "25.04.2021", "25.04.2021"));
             int position = mCardDataSource.getItemCount() - 1;
             mAdapter.notifyItemInserted(position);
             recyclerView.smoothScrollToPosition(position);
@@ -170,6 +187,10 @@ public class ListFragment extends Fragment {
 
     public void updateTitleText(String title) {
         mTitle = title;
+    }
+
+    public void setKey(int key) {
+        mKey = key;
     }
 
     public String getTitle() {
